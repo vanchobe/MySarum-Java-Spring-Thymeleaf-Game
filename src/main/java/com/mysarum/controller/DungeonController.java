@@ -217,7 +217,6 @@ public class DungeonController {
         } else {
 
             Dungeon.visualizeStats(modelAndView, dungeonService, id, weaponService, user);
-//            modelAndView.addObject("successAttackMessage", String.format("You can't attack %s. You don't meet the requirements", dungeonService.findById(1).getName()));
             modelAndView.setViewName("dungeons/mine");
 
         }
