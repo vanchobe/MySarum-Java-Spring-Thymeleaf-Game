@@ -39,12 +39,6 @@ public class FoodShopController {
         User user = userService.findUserByEmail(auth.getName());
 
 
-//        modelAndView.addObject("monsterName", monsterService.findById(1).getName());
-//        modelAndView.addObject("monsterHealth", monsterService.findById(1).getHealth());
-//        modelAndView.addObject("monsterPower", monsterService.findById(1).getPower());
-//        modelAndView.addObject("monsterImage", monsterService.findById(1).getImage());
-
-
         User.visualizeUserStats(modelAndView, user, weaponService);
 
         Food.foodVisualize(modelAndView, foodService);
