@@ -112,8 +112,7 @@ public class BackPackController {
         //  items per page
         int size = 3;
 
-        BackPack.showBackpackItemsPaging(size,page,backpackService,sortedList,modelAndView,user,itemQuantity);
-
+        BackPack.showBackpackItemsPaging(size, page, backpackService, sortedList, modelAndView, user, itemQuantity);
 
 
         // to show items from my players backpack
@@ -140,7 +139,6 @@ public class BackPackController {
         Map<String, Integer> itemQty = BackPack.showBackpackQuantity(sortedList, backpackService, user);
 
         // here to show backpack
-
 
 
         boolean isContained = false;
@@ -218,8 +216,7 @@ public class BackPackController {
             //  items per page
             int size = 3;
 
-            BackPack.showBackpackItemsPaging(size,1,backpackService,sortedList,modelAndView,user,itemQty);
-
+            BackPack.showBackpackItemsPaging(size, 1, backpackService, sortedList, modelAndView, user, itemQty);
 
 
             modelAndView.addObject("successAttackMessage", String.format("You sell item successfully!"));
@@ -255,9 +252,6 @@ public class BackPackController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-
-
-//        Weapon weapon = weaponService.findWeaponById(user.getWeapon());
 
 
         int playerGold = user.getGold();
@@ -296,8 +290,6 @@ public class BackPackController {
 
             List<BackPack> backPack = backpackService.findByPid(user.getId());
 
-//            Item item = itemService.findItemById(itemId);
-//
 
             int itemQuantity = 0;
             int backPackId = 0;
@@ -318,7 +310,7 @@ public class BackPackController {
             } else {
                 backpackService.deleteFromBackpack(backPackId);
             }
-            // da napravq da namalq kolichestvoto ot chantanta ili da go trie
+
 
             tradeService.saveDeal(tradeInfo);
 
@@ -339,12 +331,8 @@ public class BackPackController {
 
             int size = 3;
 
-            BackPack.showBackpackItemsPaging(size,1,backpackService,sortedList,modelAndView,user,itemQty);
+            BackPack.showBackpackItemsPaging(size, 1, backpackService, sortedList, modelAndView, user, itemQty);
 
-
-//            modelAndView.addObject("items", sortedList);
-//
-//            modelAndView.addObject("quantity", itemQuantity);
 
             Trade.visualizeTradeItems(modelAndView, tradeService);
 
@@ -368,12 +356,9 @@ public class BackPackController {
 
             int size = 3;
 
-            BackPack.showBackpackItemsPaging(size,1,backpackService,sortedList,modelAndView,user,itemQuantity);
+            BackPack.showBackpackItemsPaging(size, 1, backpackService, sortedList, modelAndView, user, itemQuantity);
 
 
-//            modelAndView.addObject("items", sortedList);
-//
-//            modelAndView.addObject("quantity", itemQuantity);
 
 
             modelAndView.addObject("successAttackMessage", String.format("You don't have this item, or price must be positive and can't be zero"));
