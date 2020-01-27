@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Admin Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+      $("#myTooltips a").tooltip({
+        template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-head"><h3><span class="glyphicon glyphicon-info-sign"></span> Tool Info</h3></div><div class="tooltip-inner"></div></div>'
+    });
+});
+
+    </script>
+</head>
+
+<body>
+<div class="container">
+
+    <form th:action="@{/logout}" method="get">
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Logout
+        </button>
+    </form>
+
+
+    <div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-primary container">
+            <div class="row">
+                <div class="panel-heading">
+                    <span th:utext="${userName}"></span>
+
+                    <div th:replace="fragments/navBar">
+                </div>
+                <div class="panel-body">
+                    <div class="col-sm-4    ">
+                        <h3><span class="i-playerName" th:class="i-playerName" th:utext="${playerName}"></span></h3>
+                        <h4><span class="i-playerHealth" th:class="i-playerHealth" th:utext="${playerHealth}"></span></h4>
+                        <img th:src="@{/images/user.png}" class="img-responsive center-block" width="200" height="200"
+                             alt="User"/>
+                        <span class="i-monster-attack" th:utext="${successConvertMessage}"></span>
+                        <form th:action="@{/convert-experience/}" method="POST">
+
+                            <button class="btn btn-md btn-warning btn-block" name="convertXp"
+                                    type="submit" data-toggle="tooltip">Convert Xp into Level
+
+                                <div id="myTooltips">
+                                    <a th:action="@{/convert-experience/}" data-toggle="tooltip" data-placement="bottom" title="Player Level * 40">
+                                        Requirements!</a>
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-sm-5 user-home">
+
+
+
+
+                        <p>Health: <img th:src="@{/images/health.png}" width="48px" height="48px"
+                                        alt="health"/><span class="i-stats" th:utext="${userHealth}"></span></p>
+                        <p>Mana: <img th:src="@{/images/mana.png}" width="48px" height="48px"
+                                      alt="mana"/><span class="i-stats" th:utext="${userMana}"></span></p>
+                        <p>Power: <img th:src="@{/images/power.png}" width="48px" height="48px"
+                                       alt="power"/><span class="i-stats" th:utext="${userPower}"></span><span
+                                class="i-stats" th:utext="${userBonusPower}"></span></p>
+                        <p>Experience: <img th:src="@{/images/xp.png}" width="48px" height="48px"
+                                            alt="xp"/><span class="i-stats" th:utext="${userExperience}"></span></p>
+                        <p>Level: <img th:src="@{/images/level.png}" width="48px" height="48px"
+                                       alt="level"/><span class="i-stats" th:utext="${userLevel}"></span></p>
+                        <p>Gold: <img th:src="@{/images/gold.png}" width="48px" height="48px"
+                                      alt="level"/><span class="i-stats" th:utext="${userGold}"></span></p>
+
+                        <h3>Equipment</h3>
+                        <img th:src="${weaponImage}" width="120px" height="120px"
+                             alt="mana"/>
+                        <p th:utext="${userWeapon}"></p>
+                    </div>
+
+
+                </div>
+                <p class="admin-message-text text-center" th:utext="${userMessage}"></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

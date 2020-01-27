@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Dungeons -
+        <mine></mine>
+    </title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script th:inline="javascript">
+
+    </script>
+
+</head>
+
+<body>
+<div class="container">
+
+    <form th:action="@{/logout}" method="get">
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Logout
+        </button>
+    </form>
+
+    <div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-primary container">
+            <div class="row">
+
+                <div class="panel-heading">
+
+                    <span th:utext="${userName}"></span>
+                    Health: <img th:src="@{/images/health.png}" width="15px" height="15px"
+                                 alt="health"/><span class="i-stats" th:utext="${userHealth}"></span>
+                    Mana: <img th:src="@{/images/mana.png}" width="15px" height="15px"
+                               alt="mana"/><span class="i-stats" th:utext="${userMana}"></span>
+                    Power: <img th:src="@{/images/power.png}" width="15px" height="15px"
+                                alt="power"/><span class="i-stats" th:utext="${userPower}"></span><span
+                        class="i-stats" th:utext="${userBonusPower}"></span>
+
+                    Level: <img th:src="@{/images/level.png}" width="15px" height="15px"
+                                alt="level"/><span class="i-stats" th:utext="${userLevel}"></span>
+                    <div th:replace="fragments/navBar">
+                </div>
+                <div class="panel-body i-background-mine-panel">
+                    <h2>Welcome to Dungeon "Mine"</h2>
+                    <div class="col-md-5 i-dungeon-player-box">
+                        <h3><span class="i-playerName" th:class="i-playerName" th:utext="${playerName}"></span></h3>
+                        <h4><span class="i-playerHealth" th:class="i-playerHealth" th:utext="${playerHealth}"></span></h4>
+
+                        <img th:src="@{/images/user.png}" class="img-responsive center-block" width="200" height="200"
+                             alt="User"/>
+                        <span class="i-playerHealth">
+                            Hey, stranger! Welcome to dungeon. Every new level you will unlock new monsters. They will give you gold and sometimes will drop items.
+                        </span>
+                    </div>
+                    <div class="col-md-7 i-dungeon-monster-box">
+
+                        <span class="i-success-work-message" th:utext="${successItemReceived}"></span>
+                        <span class="i-monster-attack" th:utext="${successAttackMessage}"></span>
+                        <th th:each = "monster : ${monsters}"  th:if="${userLevel} == ${monster.levelRequired}">
+
+                            <h3><span class="i-monster" th:text="${monster.name}"></span></h3>
+                            <p>Health: <span class="i-monster" th:text="${monster.health}"></span></p>
+                            <p>Power <span class="i-monster" th:text="${monster.power}"></span></p>
+                            <p>Level Required <span class="i-monster" th:text="${monster.levelRequired}"></span></p>
+                            <img th:src="${monster.image}" class="img-responsive center-block" width="150" height="150" >
+
+                            <center>
+
+                                <form th:action="@{/attack/{id}(id=${monster.id})}" method="POST">
+
+                                    <button class="i-monster-attack-button" name="attack"
+                                            type="submit"><img th:src="${playerWeaponImage}"
+      width="35px" height="35px" />Attack
+                                    </button>
+                                </form>
+
+                            </center>
+                        </th>
+
+
+                    </div>
+
+
+                </div>
+                <p class="admin-message-text text-center" th:utext="${userMessage}"></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

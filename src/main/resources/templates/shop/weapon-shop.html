@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Weapon Shop -
+
+    </title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+
+    <form th:action="@{/logout}" method="get">
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Logout
+        </button>
+    </form>
+
+    <div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-primary container">
+            <div class="row">
+                <div class="panel-heading">
+                    <span th:utext="${userName}"></span>
+                    Health: <img th:src="@{/images/health.png}" width="15px" height="15px"
+                                 alt="health"/><span class="i-stats" th:utext="${userHealth}"></span>
+                    Mana: <img th:src="@{/images/mana.png}" width="15px" height="15px"
+                               alt="mana"/><span class="i-stats" th:utext="${userMana}"></span>
+                    Power: <img th:src="@{/images/power.png}" width="15px" height="15px"
+                                alt="power"/><span class="i-stats" th:utext="${userPower}"></span><span
+                        class="i-stats" th:utext="${userBonusPower}"></span>
+
+                    Level: <img th:src="@{/images/level.png}" width="15px" height="15px"
+                                alt="level"/><span class="i-stats" th:utext="${userLevel}"></span>
+                    <div th:replace="fragments/navBar">
+
+                </div>
+                <div class="panel-body">
+                    <div class="col-sm-4">
+                        <h3><span class="i-playerName" th:class="i-playerName" th:utext="${playerName}"></span></h3>
+                        <h4><span class="i-playerHealth" th:class="i-playerHealth" th:utext="${playerHealth}"></span></h4>
+
+                        <img th:src="@{/images/user.png}" class="img-responsive center-block" width="200" height="200"
+                             alt="User"/>
+                    </div>
+                    <div class="col-sm-8">
+                        <span class="i-stats" th:utext="${successAttackMessage}"></span>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Weapon</th>
+                                <th scope="col"></th>
+                                <th scope="col">Points</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Bonus experience</th>
+                                <th scope="col">Bonus Change on Item Drop</th>
+                                <th scope="col">Level Required</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <th:block th:each = "weapon : ${weapons}" th:if="${weapon.id} != '0'">
+                                <tr>
+                                <td><span class="i-monster" th:text="${weapon.name}"></span></td>
+                                <td><img th:src="${weapon.weaponImage}" class="img-responsive center-block" width="100px" height="100px" ></td>
+                                <td><span class="i-monster" th:text="${weapon.weaponPoints}"></span></td>
+                                <td><span class="i-monster" th:text="${weapon.price}"></span></td>
+                                <td><span class="i-monster" th:text="${weapon.bonusExperience}"></span></td>
+                                <td><span class="i-monster" th:text="${weapon.bonusItemDrop}"></span></td>
+                                <td><span class="i-monster" th:text="${weapon.levelRequired}"></span></td>
+                                <td>
+                                    <form th:action="@{/buy-weapon/{id}(id=${weapon.id})}" method="POST">
+
+                                        <button class="btn btn-md btn-warning btn-block" name="buyWeapon"
+                                                type="submit">Buy
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </th:block>
+
+                            </tbody>
+                        </table>
+
+
+
+
+
+
+
+
+                    </div>
+
+
+                </div>
+                <p class="admin-message-text text-center" th:utext="${userMessage}"></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Admin Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+      $("#myTooltips a").tooltip({
+        template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-head"><h3><span class="glyphicon glyphicon-info-sign"></span> Tool Info</h3></div><div class="tooltip-inner"></div></div>'
+    });
+});
+
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+<div class="container">
+
+    <form th:action="@{/logout}" method="get">
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Logout
+        </button>
+    </form>
+
+
+    <div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-primary container">
+            <div class="row">
+                <div class="panel-heading">
+                    <span th:utext="${userName}"></span>
+                    <div th:replace="fragments/navBar">
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-3">
+                            <h3><span class="i-playerName" th:class="i-playerName" th:utext="${playerName}"></span></h3>
+                            <h4><span class="i-playerHealth" th:class="i-playerHealth"
+                                      th:utext="${playerHealth}"></span></h4>
+                            <img th:src="@{/images/user.png}" class="img-responsive center-block" width="200"
+                                 height="200"
+                                 alt="User"/>
+                        </div>
+                        <div class="col-md-9">
+                            <h2>Items in your BackPack</h2>
+                            <span class="i-monster-attack" th:utext="${successAttackMessage}"></span>
+                            <span class="i-monster-message" th:utext="${successBuyMessage}"></span>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Item</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Points</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Sell Price</th>
+                                    <th scope="col">Experience Earn When Sell</th>
+                                    <th scope="col">Vendor Sell</th>
+                                    <th scope="col">Trade</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <th:block th:each="backpack : ${backpacks}">
+                                    <th:block th:each="item : ${items}" th:if="${backpack.itemId} == ${item.id}">
+                                        <tr>
+                                            <td><span class="i-monster" th:text="${item.name}"></span></td>
+                                            <td><img th:src="${item.itemImage}" class="img-responsive center-block"
+                                                     width="100px"
+                                                     height="100px"></td>
+                                            <td><span th:each="quantityMap: ${quantity}">
+
+                                                <span th:if="${item.name} == ${quantityMap.key}"
+                                                      th:text="${quantityMap.value}"></span>
+                                            </span>
+                                            </td>
+                                            <td><span class="i-monster" th:text="${item.itemPoints}"></span></td>
+
+                                            <td><span class="i-monster" th:text="${item.price}"></span></td>
+                                            <td><span class="i-monster" th:text="${item.sellPrice}"></span></td>
+
+                                            <td><span class="i-monster" th:text="${item.experienceEarn}"></span></td>
+                                            <td>
+                                                <form th:action="@{/sell-item/{id}(id=${item.id})}" method="POST">
+
+                                                    <button class="btn btn-md btn-warning btn-block" name="sellItem"
+                                                            type="submit">Sell
+                                                    </button>
+                                                </form>
+
+                                            </td>
+                                            <td>
+
+                                                <form autocomplete="off" th:object="${tradeInfo}"
+                                                      th:action="@{/user/itemtrade/{id}(id=${item.id})}" method="POST">
+                                                    <input type="number" id="price" name="price"
+                                                           placeholder="Enter Price" class="form-control"/>
+                                                    <button class="btn btn-md btn-warning btn-block" name="sellItem"
+                                                            type="submit">Trade
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </th:block>
+                                </th:block>
+
+
+                                </tbody>
+                            </table>
+                            <div class="row" th:fragment="pagination">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <nav aria-label="Pagination">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+                                                <a class="page-link" th:href="@{|/user/backPack/${pageNumber}|}"
+                                                   th:text=${pageNumber}>1</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                        </div>
+
+
+                        <!--<p>Health: <img th:src="@{/images/health.jpg}" width="15px" height="15px"-->
+                        <!--alt="health"/><span class="i-stats" th:utext="${userHealth}"></span></p>-->
+                        <!--<p>Mana: <img th:src="@{/images/mana.png}" width="15px" height="15px"-->
+                        <!--alt="mana"/><span class="i-stats" th:utext="${userMana}"></span></p>-->
+                        <!--<p>Power: <img th:src="@{/images/power.jpg}" width="15px" height="15px"-->
+                        <!--alt="power"/><span class="i-stats" th:utext="${userPower}"></span><span-->
+                        <!--class="i-stats" th:utext="${userBonusPower}"></span></p>-->
+                        <!--<p>Experience: <img th:src="@{/images/xp.jpg}" width="15px" height="15px"-->
+                        <!--alt="xp"/><span class="i-stats" th:utext="${userExperience}"></span></p>-->
+                        <!--<p>Level: <img th:src="@{/images/level.png}" width="15px" height="15px"-->
+                        <!--alt="level"/><span class="i-stats" th:utext="${userLevel}"></span></p>-->
+                        <!--<p>Gold: <img th:src="@{/images/gold.jpeg}" width="15px" height="15px"-->
+                        <!--alt="level"/><span class="i-stats" th:utext="${userGold}"></span></p>-->
+
+
+                    </div>
+
+
+                </div>
+                <p class="admin-message-text text-center" th:utext="${userMessage}"></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

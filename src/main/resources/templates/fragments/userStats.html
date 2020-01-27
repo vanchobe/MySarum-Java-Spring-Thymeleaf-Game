@@ -1,0 +1,14 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+Health: <img th:src="@{/images/health.jpg}" width="15px" height="15px"
+             alt="health"/><span class="i-stats" th:utext="${userHealth}"></span>
+Mana: <img th:src="@{/images/mana.png}" width="15px" height="15px"
+           alt="mana"/><span class="i-stats" th:utext="${userMana}"></span>
+Power: <img th:src="@{/images/power.jpg}" width="15px" height="15px"
+            alt="power"/><span class="i-stats" th:utext="${userPower}"></span><span
+        class="i-stats" th:utext="${userBonusPower}"></span>
+
+Level: <img th:src="@{/images/level.png}" width="15px" height="15px"
+            alt="level"/><span class="i-stats" th:utext="${userLevel}"></span>

@@ -1,0 +1,97 @@
+.admin-message-text {
+    font-style: normal;
+    font-size: 18px;
+    color: #004080;
+}
+
+.i-playerName  {
+    justify-content: center;
+    display: flex;
+    color: blue;
+    font-size: 3.55rem;
+}
+.i-playerName::before {
+    content: "<";
+}
+.i-playerName::after {
+    content: ">";
+}
+.i-playerHealth {
+    justify-content: center;
+        display: flex;
+    color: green;
+}
+.i-playerHealth::before {
+     content: "<";
+}
+.i-playerHealth::after {
+     content: ">";
+}
+
+.i-success-work-message {
+    color: green;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.i-error-work-message {
+    color: red;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.i-background-mine-panel,
+.panel-body{
+background-image: url(/images/dungeon-mine.jpg);
+background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: bottom;
+    color: chartreuse;
+}
+
+.i-dungeon-monster-box{
+margin-bottom: 8%;
+}
+.i-dungeon-player-box{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.i-monster-attack-button{
+background-color: #FF9800;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+
+.i-dungeon-monster-box h3,
+.i-dungeon-monster-box,
+.i-dungeon-monster-box span,
+.i-dungeon-monster-box p
+{
+    text-align: center;
+}
+
+
+.btn-warning {
+	color: #7ff104!important;
+	background-color: transparent!important;
+	border-color: #7ff104!important;
+	}
+.btn-warning:hover {
+	color: #7ff104!important;
+ background-color: #251a1d!important;
+ border-color: #7ff104!important;
+}
+
+.user-home {
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+
+
+
+

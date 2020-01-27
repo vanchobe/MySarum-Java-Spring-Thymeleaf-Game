@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Top Players
+
+    </title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+
+    <form th:action="@{/logout}" method="get">
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Logout
+        </button>
+    </form>
+
+    <div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-primary container">
+            <div class="row">
+                <div class="panel-heading">
+                    <span th:utext="${userName}"></span>
+                    Health: <img th:src="@{/images/health.png}" width="15px" height="15px"
+                                 alt="health"/><span class="i-stats" th:utext="${userHealth}"></span>
+                    Mana: <img th:src="@{/images/mana.png}" width="15px" height="15px"
+                               alt="mana"/><span class="i-stats" th:utext="${userMana}"></span>
+                    Power: <img th:src="@{/images/power.png}" width="15px" height="15px"
+                                alt="power"/><span class="i-stats" th:utext="${userPower}"></span><span
+                        class="i-stats" th:utext="${userBonusPower}"></span>
+
+                    Level: <img th:src="@{/images/level.png}" width="15px" height="15px"
+                                alt="level"/><span class="i-stats" th:utext="${userLevel}"></span>
+                    <div th:replace="fragments/navBar">
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-5">
+                            <h3><span class="i-playerName" th:class="i-playerName" th:utext="${playerName}"></span></h3>
+                            <h4><span class="i-playerHealth" th:class="i-playerHealth" th:utext="${playerHealth}"></span></h4>
+
+                            <img th:src="@{/images/user.png}" class="img-responsive center-block" width="200" height="200"
+                                 alt="User"/>
+                        </div>
+                        <div class="col-md-7">
+
+
+
+
+
+
+
+
+
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Player Name</th>
+                                        <th scope="col"><img th:src="@{/images/level.png}" width="15px" height="15px"
+                                                             alt="level"/> Level</th>
+                                        <th scope="col"><img th:src="@{/images/gold.png}" width="30px" height="30px"
+                                                             alt="level"/> Gold</th>
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each = "player, id : ${players}">
+                                    <tr>
+
+                                        <th th:text="${id.index} + ${counter}" scope="row">1</th>
+                                        <td th:text="${player.name}"></td>
+                                        <td th:text="${player.level}"></td>
+                                        <td th:text="${player.gold}"></td>
+
+                                    </tr>
+                                    </th:block>
+
+
+                                    </tbody>
+                                </table>
+
+                            <div class="row" th:fragment="pagination">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <nav aria-label="Pagination">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
+                                                <a class="page-link" th:href="@{|/top-players/page/${pageNumber}|}" th:text=${pageNumber}>1</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
+
+                                <!--<center>-->
+
+                                    <!--<form th:action="@{/buy-food/{id}(id=${food.id})}" method="POST">-->
+
+                                        <!--<button class="btn btn-md btn-warning btn-block" name="buyFood"-->
+                                                <!--type="submit">Buy-->
+                                        <!--</button>-->
+                                    <!--</form>-->
+
+                                <!--</center>-->
+
+
+
+                        </div>
+
+
+                    </div>
+                    <!--<p class="admin-message-text text-center" th:utext="${userMessage}"></p>-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
