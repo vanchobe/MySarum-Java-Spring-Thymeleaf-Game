@@ -3,8 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Dungeons -
-        <mine></mine>
+    <title>Dungeons
     </title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -56,6 +55,16 @@
                         <span class="i-playerHealth">
                             Hey, stranger! Welcome to dungeon. Every new level you will unlock new monsters. They will give you gold and sometimes will drop items.
                         </span>
+
+                        <span class="i-monster-attack" th:utext="${successBuyBattlesMessage}"></span>
+                        <th th:if="${buyMoreAttacks} == 1">
+                            <form th:action="@{/buy-more-attacks}" method="POST">
+
+                                <button class="i-monster-attack-button" name="attack"
+                                        type="submit">Buy 10 battles for 10 gold.
+                                </button>
+                            </form>
+                        </th>
                     </div>
                     <div class="col-md-7 i-dungeon-monster-box">
 
