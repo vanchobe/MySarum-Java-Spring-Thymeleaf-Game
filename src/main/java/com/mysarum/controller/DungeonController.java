@@ -61,6 +61,12 @@ public class DungeonController {
 
         Work.refreshWorkState(workService, userService, user);
 
+        if (user.getDungeonTimestamp() != null) {
+            modelAndView.addObject("buyMoreAttacks", 1);
+        } else {
+            modelAndView.addObject("buyMoreAttacks", 0);
+
+        }
 
         modelAndView.addObject("monsters", dungeonService.findAll());
         int customId = 3;
@@ -69,6 +75,47 @@ public class DungeonController {
         User.visualizeUserStats(modelAndView, user, weaponService);
 
         modelAndView.setViewName("dungeons/mine");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/buy-more-attacks", method = RequestMethod.POST)
+    public ModelAndView buyMoreAttacks() {
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+
+
+        Weapon weapon = weaponService.findWeaponById(user.getWeapon());
+
+
+        // refresh work state
+        Work.refreshWorkState(workService, userService, user);
+
+        int customId = 3;
+        Dungeon.visualizeStats(modelAndView, dungeonService, customId, weaponService, user);
+        User.visualizeUserStats(modelAndView, user, weaponService);
+
+        int playerGold = user.getGold();
+
+        if (user.getDungeonTimestamp() != null) {
+            if (user.getGold() >= 10) {
+                user.setDungeonTimestamp(null);
+                user.setGold(playerGold - 10);
+                userService.saveStats(user);
+                modelAndView.addObject("successBuyBattlesMessage", "You add +10 new battles.");
+                modelAndView.setViewName("dungeons/mine");
+            } else {
+                modelAndView.addObject("successBuyBattlesMessage", "You don't have enought gold. Need 10. Try again later!");
+                modelAndView.setViewName("dungeons/mine");
+            }
+        } else {
+
+            modelAndView.addObject("successBuyBattlesMessage", "You can't buy new battles. You have free turns.");
+            modelAndView.setViewName("dungeons/mine");
+        }
+
+        modelAndView.setViewName("dungeons/mine");
+
         return modelAndView;
     }
 
